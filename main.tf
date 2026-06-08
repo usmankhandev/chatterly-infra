@@ -8,7 +8,11 @@ locals {
     })
 }
 
-
+variable "admin_enabled" {
+    description = "Enable admin user for ACR"
+    type        = bool
+    default     = false
+}
 
 # Module: Resource Group
 
@@ -73,3 +77,15 @@ module "aks" {
   depends_on = [module.nsg]
 }
 
+# ACR
+
+module "acr" {
+    source = "./modules/acr"
+
+    name = "acrchatterlydev"
+    resource_group_name = module.resource_group.name
+    location = var.location
+    sku = "Basic"
+    admin_enabled = var.admin_enabled
+    tags = local.common_tags
+}
