@@ -1,0 +1,25 @@
+# Terraform state (NEVER commit these)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+tfplan*
+
+# Sensitive variable files
+*.tfvars.local
+secrets.tfvars
+override.tf
+override.tf.json
+
+# Lock file (DO commit this — pins provider versions)
+# .terraform.lock.hcl  <-- intentionally not ignored
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.terraform/
