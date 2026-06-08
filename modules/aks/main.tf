@@ -36,6 +36,12 @@ resource "azurerm_kubernetes_cluster" "this" {
             "nodepool-type" = "system"
             "environment" = var.tags["environment"]
         }
+
+        upgrade_settings {
+            max_surge = "10%"
+            drain_timeout_in_minutes = 0
+            node_soak_duration_in_minutes = 0
+        }
     }
 
     network_profile {
@@ -111,6 +117,12 @@ resource "azurerm_kubernetes_cluster_node_pool" "app" {
         "environment"   = var.tags["environment"]
     }
     tags = var.tags
+
+    upgrade_settings {
+        max_surge = "10%"
+        drain_timeout_in_minutes = 0
+        node_soak_duration_in_minutes = 0
+    }
 }
 
 
