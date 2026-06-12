@@ -35,6 +35,36 @@ resource "azurerm_network_security_rule" "allow_http" {
   network_security_group_name = azurerm_network_security_group.aks.name
 }
 
+# modules/nsg/main.tf — add this rule
+resource "azurerm_network_security_rule" "allow_aks_kubelet" {
+  name                        = "allow-aks-control-plane"
+  priority                    = 130
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "10250"
+  source_address_prefix       = "AzureCloud"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.aks.name
+}
+
+
+resource "azurerm_network_security_rule" "allow_kubelet_debug" {
+  name                        = "allow-kubelet-debug-temp"
+  priority                    = 125
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "10250"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.aks.name
+}
+
 resource "azurerm_network_security_rule" "allow_alb" {
   name                        = "allow-azure-lb"
   priority                    = 120
