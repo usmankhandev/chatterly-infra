@@ -19,7 +19,7 @@ terraform {
       resource_group_name   = "rg-chatterly-tfstate"
       storage_account_name  = "stchatterlystatedev"
       container_name        = "tfsstate"
-      key = "/dev/terraform.tfstate"
+      key = "dev/terraform.tfstate"
     }
 }
 

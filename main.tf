@@ -89,3 +89,13 @@ module "acr" {
     admin_enabled = var.admin_enabled
     tags = local.common_tags
 }
+
+
+module "keyvault" {
+    source              = "./modules/keyvault"
+    name                = "kv-chatterly-dev"    
+    location            = var.location
+    resource_group_name = module.resource_group.name
+    kubelet_identity_object_id = module.aks.kubelet_identity_object_id
+    tags                = local.common_tags
+}
